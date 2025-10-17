@@ -38,36 +38,50 @@
     font-weight: 200
     font-style: normal
     font-size: .8rem
+    /* nudge whole nav slightly down on desktop to align with title */
+    margin-top: .25rem
 
     ul
       margin: 0
       padding: 0
       list-style-type: none
-      line-height: 15px
+      line-height: 1.6
+      display: flex
+      align-items: center
+      flex-wrap: wrap
+      gap: 15px
 
       a
-        margin-right: 15px
+        margin-right: 0
         color: $color-accent-1
 
       a:hover
         underline(5px, $color-accent-1)
 
+      /* language switcher */
+      .lang-switch
+        margin-left: 0
+
+      .lang-switch a
+        font-weight: 500
+        opacity: .9
+        /* keep same color as nav links */
+        color: $color-accent-1
+
+      .lang-switch a:hover
+        opacity: 1
+
       li
-        display: inline-block
-        margin-right: 15px
-        border-right: 1px dotted
-        border-color: $color-accent-1
+        display: inline-flex
+        align-items: center
         vertical-align: middle
+
+      li + li
+        border-left: 1px dotted $color-accent-1
+        padding-left: 15px
 
       .icon
         display: none
-
-      li:last-child
-        margin-right: 0
-        border-right: 0
-
-        a
-          margin-right: 0
 
 if $logo-grayout
   #header:hover
@@ -86,6 +100,16 @@ if $logo-grayout
 
   #header #nav
     ul
+      flex-direction: column
+      align-items: flex-start
+      gap: .4rem
+      /* remove horizontal separators & extra padding when stacked */
+      li
+        border: 0
+        padding: 0
+      li + li
+        border-left: 0
+        padding-left: 0
       a:hover
         background: none
 
@@ -100,17 +124,29 @@ if $logo-grayout
         display: inline-block
         text-align: center
 
+      /* larger tap target for the language switcher on mobile */
+      .lang-switch a
+        display: inline-block
+        min-width: 48px
+        min-height: 48px
+
     ul.responsive
+      padding-left: $logo-width + 20px
       li
         display: block
-    
-    ul 
+        padding: 0
+      li + li
+        border-left: 0
+        padding-left: 0
+
+    ul
       a[aria-label="Menu"]
         display: inline-block
         min-width: 48px
         min-height: 48px
 
-    li:not(:first-child)
-      padding-top: 1rem
-      padding-left: $logo-width + 20px
+    #header #nav ul.responsive li:not(:first-child)
+      padding-top: .75rem
+      /* no left padding so vertical items align */
+      padding-left: 0
       font-size: 1rem
