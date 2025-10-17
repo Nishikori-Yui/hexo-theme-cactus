@@ -1,45 +1,13 @@
-<ul class="share">
-    <li>
-        <a class="icon copy-link"
-           href="#"
-           role="button"
-           aria-label="Copy link">
-            <i class="fa-regular fa-copy <%= icon_class_name %>" aria-hidden="true"></i>
-        </a>
-    </li>
+<ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=<%= page.permalink %>"><i class="fab fa-facebook <%= icon_class_name %>" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=<%= page.permalink %>&text=<%= page.title %>"><i class="fab fa-twitter <%= icon_class_name %>" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=<%= page.permalink %>&title=<%= page.title %>"><i class="fab fa-linkedin <%= icon_class_name %>" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=<%= page.permalink %>&is_video=false&description=<%= page.title %>"><i class="fab fa-pinterest <%= icon_class_name %>" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=<%= page.title %>&body=Check out this article: <%= page.permalink %>"><i class="fa-solid fa-envelope <%= icon_class_name %>" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=<%= page.permalink %>&title=<%= page.title %>"><i class="fab fa-get-pocket <%= icon_class_name %>" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=<%= page.permalink %>&title=<%= page.title %>"><i class="fab fa-reddit <%= icon_class_name %>" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=<%= page.permalink %>&title=<%= page.title %>"><i class="fab fa-stumbleupon <%= icon_class_name %>" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=<%= page.permalink %>&title=<%= page.title %>"><i class="fab fa-digg <%= icon_class_name %>" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=<%= page.permalink %>&name=<%= page.title %>&description=<%= page.excerpt %>"><i class="fab fa-tumblr <%= icon_class_name %>" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=<%= page.permalink %>&t=<%= page.title %>"><i class="fab fa-hacker-news <%= icon_class_name %>" aria-hidden="true"></i></a></li>
 </ul>
-
-<script>
-    (function () {
-        if (typeof ClipboardJS !== 'undefined') {
-            var clipboard = new ClipboardJS('.copy-link', {
-                text: function(trigger) {
-                    var u = '<%- page.permalink %>';
-                    // If URL already contains percent-escapes, do NOT re-encode (to avoid %25…)
-                    return /%[0-9A-Fa-f]{2}/.test(u) ? u : encodeURI(u);
-                }
-            });
-            clipboard.on('success', function (e) {
-                const el = e.trigger;
-                const old = el.getAttribute('aria-label') || 'Copy link';
-                el.setAttribute('aria-label', 'Copied!');
-                setTimeout(() => el.setAttribute('aria-label', old), 1500);
-                e.clearSelection();
-            });
-        } else {
-            const el = document.querySelector('.copy-link');
-            if (el) {
-                el.addEventListener('click', function(ev) {
-                    ev.preventDefault();
-                    const raw = '<%- page.permalink %>';
-                    const url = /%[0-9A-Fa-f]{2}/.test(raw) ? raw : encodeURI(raw);
-                    if (navigator.clipboard && navigator.clipboard.writeText) {
-                        navigator.clipboard.writeText(url);
-                    } else {
-                        window.prompt('Copy link:', url);
-                    }
-                });
-            }
-        }
-    })();
-</script>
